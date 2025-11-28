@@ -88,6 +88,7 @@ model Organization {
   metadata    String?
   members     Member[]
   invitations Invitation[]
+  outlines    Outline[]
 
   @@unique([slug])
   @@map("organization")
@@ -101,6 +102,7 @@ model Member {
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   role           String       @default("member")
   createdAt      DateTime
+  outline        Outline?
 
   @@index([organizationId])
   @@index([userId])
@@ -122,4 +124,36 @@ model Invitation {
   @@index([organizationId])
   @@index([email])
   @@map("invitation")
+}
+
+model Outline {
+  id             String       @id @default(uuid())
+  header         String
+  section        SectionStye
+  status         Status
+  target         Int
+  limit          Int
+  memberId       String       @unique
+  organizationId String
+  member         Member       @relation(fields: [memberId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([section])
+  @@map("outline")
+}
+
+enum SectionStye {
+  TableOfContents
+  ExecutiveSummary
+  TechnicalApproach
+  Design
+  FocusDocument
+  Capabilities
+  Narrative
+}
+
+enum Status {
+  Pending
+  InProgress
+  Completed
 }
