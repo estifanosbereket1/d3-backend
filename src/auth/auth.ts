@@ -17,10 +17,13 @@ export const auth = betterAuth({
             enabled: true,
             domain: ".beete-nibab.com",
         },
+        disableCSRFCheck: true,
+        disableOriginCheck: true,
         defaultCookieAttributes: {
             secure: true,
             httpOnly: true,
             sameSite: 'none',
+            partitioned: true
         }
     },
     url: process.env.BETTER_AUTH_URL,
