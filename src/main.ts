@@ -4,6 +4,7 @@ import 'dotenv/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { mapValidationError } from './common/utils/validator';
+import { methods } from 'better-auth/client';
 
 
 async function bootstrap() {
@@ -12,8 +13,11 @@ async function bootstrap() {
   });
   const port = process.env.PUBLIC_API_PORT ?? 3000;
   app.enableCors({
+
     origin: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com"],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+
   });
 
   const config = new DocumentBuilder()

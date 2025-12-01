@@ -12,8 +12,15 @@ const resend = new Resend()
 
 
 export const auth = betterAuth({
+    advanced: {
+        crossSubDomainCookies: {
+            enabled: true,
+            domain: "https://d3-client.vercel.app",
+        },
+    },
     url: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
+
     database: prismaAdapter(
         prisma, {
         provider: "postgresql"
