@@ -12,22 +12,22 @@ const resend = new Resend()
 
 
 export const auth = betterAuth({
-    advanced: {
-        crossSubDomainCookies: {
-            enabled: true,
-            domain: ".beete-nibab.com",
-        },
-        defaultCookieAttributes: {
-            secure: true,
-            httpOnly: true,
-            sameSite: 'none',
-        }
-    },
+    // advanced: {
+    //     crossSubDomainCookies: {
+    //         enabled: true,
+    //         domain: ".beete-nibab.com",
+    //     },
+    //     defaultCookieAttributes: {
+    //         secure: true,
+    //         httpOnly: true,
+    //         sameSite: 'none',
+    //     }
+    // },
     url: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
 
-    baseURL: "https://d3.beete-nibab.com", // Add this
-    basePath: "/api/auth",
+    // baseURL: "https://d3.beete-nibab.com", // Add this
+    // basePath: "/api/auth",
 
     database: prismaAdapter(
         prisma, {
