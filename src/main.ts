@@ -17,7 +17,7 @@ async function bootstrap() {
     origin: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   const config = new DocumentBuilder()

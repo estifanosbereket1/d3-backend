@@ -15,7 +15,7 @@ export const auth = betterAuth({
     advanced: {
         crossSubDomainCookies: {
             enabled: true,
-            domain: "https://d3.beete-nibab.com",
+            domain: ".beete-nibab.com",
         },
         defaultCookieAttributes: {
             secure: true,
