@@ -6,10 +6,10 @@ import { }
     from "better-auth/adapters"
 import { Resend } from "nestjs-resend"
 
-import * as nodemailer from 'nodemailer';
 const prisma = new PrismaClient()
 
 const resend = new Resend()
+
 
 export const auth = betterAuth({
     url: process.env.BETTER_AUTH_URL,
@@ -24,12 +24,15 @@ export const auth = betterAuth({
                 id: string;
                 role: string;
                 email: string;
-                organization: { name: string };
+                organization: { name: string, };
                 invitation: { expiresAt?: Date };
                 inviter: { user: { name: string; email: string } };
             }) {
-                console.log("Trying to send email")
-                const inviteLink = `http://localhost:3001/accept-invitation/${data.id}`;
+                const orgName = data.organization.name
+                const inviterName = data.inviter.user.name
+                const role = data.role
+                const date = data.invitation.expiresAt
+                const inviteLink = process.env.NODE_ENV == "development" ? `http://localhost:3001/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}` : `https://d3-client.vercel.app/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}`;
 
 
                 const html = `
@@ -48,7 +51,7 @@ export const auth = betterAuth({
                 `;
 
                 const resp = await resend.emails.send({
-                    from: "example@notifications.pixel-perfecto.com",
+                    from: "noreply@notifications.pixel-perfecto.com",
                     to: data.email,
                     subject: `Invitation to join ${data.organization.name}`,
                     replyTo: data.inviter.user.email,
@@ -75,5 +78,5 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001'],
+    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com"],
 })
