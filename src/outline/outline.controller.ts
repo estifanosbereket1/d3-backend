@@ -6,19 +6,26 @@ import { Session, } from '@thallesp/nestjs-better-auth';
 import type { UserSession } from '@thallesp/nestjs-better-auth';
 import { OrganizationId } from 'src/common/decorators/organization.decorator';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
-import { O } from 'node_modules/better-auth/dist/index--CrC0_x3.mjs';
+import { ApiCookieAuth, ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ORGANIZATION_ID_HEADER_TOKEN } from 'src/common/utils/constants';
+import { CreateOutlineResponseDto, OutlineListResponseDto } from './dto/response.dto';
 
+@ApiTags('Outline')
+@ApiCookieAuth('better-auth.session_token')
+@ApiSecurity(ORGANIZATION_ID_HEADER_TOKEN)
 @Controller('outline')
 export class OutlineController {
   constructor(private readonly outlineService: OutlineService) { }
 
   @Post()
+  @ApiOkResponse({ type: CreateOutlineResponseDto })
   create(@Body() createOutlineDto: CreateOutlineDto, @OrganizationId() organizationId: string) {
     return this.outlineService.create(createOutlineDto, organizationId);
   }
 
   @Get()
-  findAll(@Session() session: UserSession, @OrganizationId() organizationId: string, @Query() paginationDto: PaginationDto) {
+  @ApiOkResponse({ type: OutlineListResponseDto })
+  findAll(@OrganizationId() organizationId: string, @Query() paginationDto: PaginationDto) {
     return this.outlineService.findAll(organizationId, paginationDto);
   }
 
@@ -28,11 +35,13 @@ export class OutlineController {
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: CreateOutlineResponseDto })
   update(@Param('id') id: string, @Body() updateOutlineDto: UpdateOutlineDto, @OrganizationId() organizationId: string) {
     return this.outlineService.update(id, updateOutlineDto, organizationId);
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: CreateOutlineResponseDto })
   remove(@Param('id') id: string, @OrganizationId() organizationId: string) {
     return this.outlineService.remove(id, organizationId);
   }

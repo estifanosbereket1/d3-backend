@@ -1,0 +1,1 @@
+export const ORGANIZATION_ID_HEADER_TOKEN = 'x-organization-id';

@@ -1,9 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateOutlineDto } from './dto/create-outline.dto';
 import { UpdateOutlineDto } from './dto/update-outline.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { auth } from 'src/auth/auth';
-import { TransactionHost } from '@nestjs-cls/transactional';
+import { Transactional, TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
@@ -59,7 +59,7 @@ export class OutlineService {
         const { member, ...rest } = row
         return {
           ...rest,
-          reviewerId: member?.userId ?? rest.memberId ?? null,
+          reviewerId: rest.memberId ?? null,
           reviewer: member?.user?.name ?? null,
         }
       })
@@ -78,13 +78,13 @@ export class OutlineService {
     return `This action returns a #${id} outline`;
   }
 
+
+  @Transactional()
   async update(id: string, updateOutlineDto: UpdateOutlineDto, organizationId: string) {
     try {
-      const updated = await this.db.tx.outline.update({
+      const updated = this.db.tx.outline.update({
         where: { id, organizationId },
-        data: {
-          ...updateOutlineDto,
-        }
+        data: updateOutlineDto
       })
       return updated
     } catch (error) {
@@ -92,6 +92,7 @@ export class OutlineService {
       throw error
     }
   }
+
 
   async remove(id: string, organizationId: string) {
     try {
