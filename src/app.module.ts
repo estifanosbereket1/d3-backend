@@ -33,12 +33,12 @@ import { MailerModule } from 'nestjs-mailer';
 
   ],
   controllers: [],
-  // providers: [
-  //   {
-  //     provide: 'APP_GUARD',
-  //     useClass: AuthGuard
-  //   }
-  // ],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: AuthGuard
+    }
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
