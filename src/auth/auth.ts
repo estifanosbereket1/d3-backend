@@ -50,7 +50,7 @@ export const auth = betterAuth({
                 const inviterName = data.inviter.user.name
                 const role = data.role
                 const date = data.invitation.expiresAt
-                const inviteLink = process.env.NODE_ENV == "development" ? `http://localhost:3001/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}` : `https://d3-client.vercel.app/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}`;
+                const inviteLink = process.env.NODE_ENV == "development" ? `http://localhost:3001/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}` : `https://front.beete-nibab.com/accept-invitation/${data.id}?orgName=${orgName}&inviterName=${inviterName}&role=${role}&date=${date}`;
 
 
                 const html = `
@@ -96,5 +96,5 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com", "https://front.beete-nibab.com/"],
+    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com", "https://front.beete-nibab.com"],
 })
