@@ -22,7 +22,7 @@ export const auth = betterAuth({
         defaultCookieAttributes: {
             // secure: true,
             // httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
             partitioned: true,
             domain: "front.beete-nibab.com"
         }
