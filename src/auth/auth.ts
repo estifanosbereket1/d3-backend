@@ -23,7 +23,8 @@ export const auth = betterAuth({
             // secure: true,
             // httpOnly: true,
             sameSite: 'none',
-            partitioned: true
+            partitioned: true,
+            domain: "front.beete-nibab.com"
         }
     },
     url: process.env.BETTER_AUTH_URL,
