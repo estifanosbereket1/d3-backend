@@ -15,7 +15,7 @@ export const auth = betterAuth({
     advanced: {
         crossSubDomainCookies: {
             enabled: true,
-            domain: "d3.beete-nibab.com",
+            domain: "front.beete-nibab.com",
         },
         disableCSRFCheck: true,
         disableOriginCheck: true,
@@ -96,5 +96,5 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com"],
+    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com", "https://front.beete-nibab.com/"],
 })
