@@ -14,7 +14,7 @@ async function bootstrap() {
   const port = process.env.PUBLIC_API_PORT ?? 3000;
   app.enableCors({
 
-    origin: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com"],
+    origin: ['http://localhost:3000', 'http://localhost:3001', "https://d3-client.vercel.app", "https://d3.beete-nibab.com", "https://front.beete-nibab.com/"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     // allowedHeaders: ['Content-Type', 'Authorization'],
