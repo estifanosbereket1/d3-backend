@@ -20,11 +20,11 @@ export const auth = betterAuth({
 
         useSecureCookies: process.env.NODE_ENV === 'production',
         defaultCookieAttributes: {
-            // secure: true,
-            // httpOnly: true,
-            sameSite: 'lax',
-            partitioned: true,
-            domain: "front.beete-nibab.com"
+            secure: true,
+            httpOnly: true,
+            sameSite: 'None',
+            // partitioned: true,
+            domain: ".beete-nibab.com"
         }
     },
     url: process.env.BETTER_AUTH_URL,
