@@ -15,7 +15,7 @@ export const auth = betterAuth({
     advanced: {
         crossSubDomainCookies: {
             enabled: true,
-            domain: "front.beete-nibab.com",
+            domain: ".beete-nibab.com",
         },
 
         useSecureCookies: process.env.NODE_ENV === 'production',
